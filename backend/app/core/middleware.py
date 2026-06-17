@@ -11,14 +11,14 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
 
         response = await call_next(request)
 
-        # OWASP A05 — Security Misconfiguration
+        
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["X-XSS-Protection"] = "1; mode=block"
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
         response.headers["X-Request-ID"] = request_id
 
-        # Relax CSP for Swagger UI at /docs (needs CDN for JS/CSS)
+        
         if request.url.path.startswith("/docs") or request.url.path.startswith("/openapi"):
             response.headers["Content-Security-Policy"] = (
                 "default-src 'self'; "

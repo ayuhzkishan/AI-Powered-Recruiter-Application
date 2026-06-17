@@ -7,7 +7,6 @@ load_dotenv()
 
 
 def reset_and_create_tables():
-    """Drop all tables and recreate from schema.sql (for development reset)."""
     schema_path = Path(__file__).parent / "schema.sql"
     schema_sql = schema_path.read_text()
 
